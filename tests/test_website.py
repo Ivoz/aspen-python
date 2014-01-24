@@ -86,7 +86,7 @@ raise Response(420)
 [---]"""))
     response = harness.client.GET(raise_immediately=False)
     assert response.code == 420
-    assert response.body == 'Enhance your calm.'
+    assert response.body == '\n\n\nEnhance your calm.'
 
 def test_default_404_is_text_html(harness):
     harness.fs.www.mk(('foo.json.spt',"""
@@ -112,7 +112,7 @@ def test_autoindex_response_is_returned(harness):
 def test_resources_can_import_from_project_root(harness):
     harness.fs.project.mk(('foo.py', 'bar = "baz"'))
     harness.fs.www.mk(('index.html.spt', "from foo import bar\n[---]\nGreetings, %(bar)s!"))
-    assert harness.client.GET(raise_immediately=False).body == "Greetings, baz!"
+    assert harness.client.GET(raise_immediately=False).body == "\n\nGreetings, baz!"
 
 def test_non_500_response_exceptions_dont_get_folded_to_500(harness):
     harness.fs.www.mk(('index.html.spt', '''
